@@ -21,8 +21,8 @@ public class PullRadius : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            Debug.Log("Entering gravitational pull: " + gameObject.name);
             GameObject.Find("UI_Pull").GetComponent<TMPro.TextMeshProUGUI>().text = gameObject.transform.parent.gameObject.name;
+            GameObject.Find("UI_Mass").GetComponent<TMPro.TextMeshProUGUI>().text = "Mass: " + gameObject.transform.parent.gameObject.GetComponent<Rigidbody>().mass.ToString();
             other.gameObject.GetComponent<PlayerMovement>().gravityTarget = gameObject.transform;
         }
     }
@@ -31,8 +31,8 @@ public class PullRadius : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            Debug.Log("Leaving: " + gameObject.name);
             GameObject.Find("UI_Pull").GetComponent<TMPro.TextMeshProUGUI>().text = "Space";
+            GameObject.Find("UI_Mass").GetComponent<TMPro.TextMeshProUGUI>().text = "Mass: -";
             other.gameObject.GetComponent<PlayerMovement>().gravityTarget = null;
         }
     }
