@@ -20,7 +20,7 @@ public class Atmosphere : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            other.gameObject.GetComponent<PlayerMovement>().inAtmosphere = true;
+            other.gameObject.GetComponent<GravityObject>().inAtmosphere = true;
         }
     }
 
@@ -28,7 +28,7 @@ public class Atmosphere : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            other.gameObject.GetComponent<PlayerMovement>().inAtmosphere = false;
+            other.gameObject.GetComponent<GravityObject>().inAtmosphere = false;
         }
     }
 }

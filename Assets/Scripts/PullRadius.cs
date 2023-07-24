@@ -23,7 +23,7 @@ public class PullRadius : MonoBehaviour
         {
             GameObject.Find("UI_Pull").GetComponent<TMPro.TextMeshProUGUI>().text = gameObject.transform.parent.gameObject.name;
             GameObject.Find("UI_Mass").GetComponent<TMPro.TextMeshProUGUI>().text = "Mass: " + gameObject.transform.parent.gameObject.GetComponent<Rigidbody>().mass.ToString();
-            other.gameObject.GetComponent<PlayerMovement>().gravityTarget = gameObject.transform;
+            other.gameObject.GetComponent<GravityObject>().gravityTarget = gameObject.transform;
         }
     }
 
@@ -33,7 +33,7 @@ public class PullRadius : MonoBehaviour
         {
             GameObject.Find("UI_Pull").GetComponent<TMPro.TextMeshProUGUI>().text = "Space";
             GameObject.Find("UI_Mass").GetComponent<TMPro.TextMeshProUGUI>().text = "Mass: -";
-            other.gameObject.GetComponent<PlayerMovement>().gravityTarget = null;
+            other.gameObject.GetComponent<GravityObject>().gravityTarget = null;
         }
     }
 }

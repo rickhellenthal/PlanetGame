@@ -18,20 +18,18 @@ public class Surface : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.gameObject.tag);
         if (other.gameObject.tag == "Player")
         {
-            other.gameObject.GetComponent<PlayerMovement>().onSurface = true;
+            other.gameObject.GetComponent<GravityObject>().onSurface = true;
             //other.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationX;
         }
     }
 
     void OnTriggerExit(Collider other)
     {
-        Debug.Log(other.gameObject.tag);
         if (other.gameObject.tag == "Player")
         {
-            other.gameObject.GetComponent<PlayerMovement>().onSurface = false;
+            other.gameObject.GetComponent<GravityObject>().onSurface = false;
             //other.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
         }
     }
