@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public float thrustSpeed = 15f;
+    public float rotationSpeed = 1;
 
     public float walkSpeed = 15f;
     public float jumpForce = 100f;
@@ -63,6 +64,38 @@ public class PlayerMovement : MonoBehaviour
         {
             Vector3 downForce = new Vector3(0f, -thrustSpeed, 0f);
             rb.AddRelativeForce(downForce);
+        }
+
+        // Rotate
+        bool shift = Input.GetKey(KeyCode.LeftShift);
+        bool tiltLeft = Input.GetKey(KeyCode.Q);
+        if (tiltLeft)
+        {
+            Debug.Log("tilt left!");
+            if (shift)
+            {
+                transform.Rotate(0, -rotationSpeed, 0);
+            }
+            else
+            {
+                transform.Rotate(0, 0, rotationSpeed);
+            }
+        }
+
+        // Rotate
+        bool tiltRight = Input.GetKey(KeyCode.E);
+        if (tiltRight)
+        {
+            Debug.Log("tilt tiltRight!");
+            if (shift)
+            {
+                transform.Rotate(0, rotationSpeed, 0);
+            }
+            else
+            {
+                transform.Rotate(0, 0, -rotationSpeed);
+
+            }
         }
     }
 
