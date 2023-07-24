@@ -11,6 +11,8 @@ public class PlayerMovement : MonoBehaviour
     public bool inAtmosphere = true;
     public bool onSurface = true;
 
+    public bool enablePreviewMovement = true;
+
     public float autoOrientSpeed = 10f;
 
     private Rigidbody rb;
@@ -24,7 +26,7 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        GameObject.Find("UI_Speed").GetComponent<TMPro.TextMeshProUGUI>().text = "Speed: " + rb.velocity.magnitude.ToString();
     }
 
     void FixedUpdate()
@@ -46,11 +48,7 @@ public class PlayerMovement : MonoBehaviour
         float distance = diff.magnitude;
 
         float forceMagnitude = (gravity * rb.mass * targetMass) / Mathf.Pow(distance, 2);
-        Debug.Log(forceMagnitude);
         rb.AddForce(forceMagnitude * direction);
-
-        //rb.AddForce(-diff.normalized * gravity * (rb.mass));
-        //Debug.Log(-diff.normalized);
 
         if (onSurface)
         {
@@ -60,11 +58,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void ProcessInput()
     {
-        MoveWithThrust();
-        return; // TODO
-
-
-        if (onSurface)
+        if (enablePreviewMovement && onSurface)
         {
             MoveWithFeet();
         }
@@ -105,7 +99,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void MoveWithFeet()
     {
-        Vector3 result;
+        Vector3 result = Vector3.zero;
         // Forward/backwards
         float vt = Input.GetAxis("Vertical");
         Vector3 force = new Vector3(0f, 0f, vt);
@@ -132,10 +126,13 @@ public class PlayerMovement : MonoBehaviour
             result += downForce;
         }
 
-        rb.AddRelativeForce(result, mode: ForceMode.VelocityChange);
+
+        //rb.AddRelativeForce(result, mode: ForceMode.VelocityChange);
         if (result != Vector3.zero)
         {
-            rb.velocity = rb.velocity.normalized * walkSpeed;
+            var velocity = result * walkSpeed;
+            Vector3 relativeVelocity = Quaternion.Inverse(transform.rotation) * velocity;
+            rb.velocity = relativeVelocity;
         }
         else
         {
